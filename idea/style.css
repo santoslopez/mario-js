@@ -40,10 +40,12 @@ body{
 }
 
 #game-area{
-
+    position: relative;
     width: 800px;
     height: 400px;
 
+    /*background:linear-gradient(to bottom,#5C94FC 80%, #228B22 100%);
+*/
     background:linear-gradient(to bottom,#5C94FC 80%, #228B22 100%);
 
     border: 2px solid #333;
@@ -52,6 +54,7 @@ body{
 }
 
 #mario{
+    position: absolute;
     width: 20px;
     height: 20px;
     background-image:url('https://imgur.com/Wb1qfhK.png');
@@ -67,18 +70,29 @@ body{
 }
 
 .platform{
+    position: absolute;
     width: 20px;
     height: 20px;
     background-image:url('https://imgur.com/M6rwarW.png');
 }
 
 .platform.ground{
+    position: absolute;
+    width:20px;
+    height: 20px;
+    background-image:url('https://imgur.com/pogC9x5.png');
+}
+
+
+.platform.floating{
+    position: absolute;
     width:20px;
     height: 20px;
     background-image:url('https://imgur.com/pogC9x5.png');
 }
 
 .platform.blue{
+    position: absolute;
     width:20px;
     height: 20px;
     background-image:url('https://imgur.com/fVscIbn.png');
@@ -87,7 +101,7 @@ body{
 }
 
 
-.enemy{
+.enemy.brown{
     width:20px;
     height: 20px;
     background-image:url('https://imgur.com/SvV4ueD.png');
@@ -183,6 +197,7 @@ body{
     border-radius:10px;
     text-align: center;
     z-index:1000;
+    display: none;
 }
 
 #restart-button{
