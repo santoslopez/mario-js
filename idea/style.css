@@ -102,14 +102,16 @@ body{
 
 
 .enemy.brown{
+    position: absolute;
     width:20px;
     height: 20px;
-    background-image:url('https://imgur.com/SvV4ueD.png');
+    background-image:url('https://imgur.com/KPO3fR9.png');
 
 }
 
 
 .enemy.purple{
+    position: absolute;
     width:20px;
     height: 20px;
     background-image:url('https://imgur.com/SvV4ueD.png');
@@ -117,10 +119,11 @@ body{
 }
 
 .coin{
+    position: absolute;
     width:20px;
     height:20px;
     background-image:url('https://imgur.com/wbKxhcd.png');
-    animation:coinSpin 1s inear infinite;
+    animation:coinSpin 1s linear infinite;
 
 }
 
@@ -136,23 +139,27 @@ body{
 }
 
 .surprise-block{
+    position: absolute;
     width:20px;
     height: 20px;
     background-image:url('https://imgur.com/gesQ1KP.png');   
 }
 
 .surprise-block.hit{
+    position: absolute;
     width:20px;
     height: 20px;
     background-image:url('https://imgur.com/bdrLpi6.png');   
 }
 
 .pipe{
+    position: absolute;
     width:40px;
     height: 40px;
 }
 
 .pipe-top{
+    position: absolute;
     width:20px;
     height: 20px;
     background-image:url('https://imgur.com/ReTPiWY.png');   
@@ -160,12 +167,14 @@ body{
 
 
 .pipe-bottom-right{
+    position: absolute;
     width:20px;
     height: 20px;
     background-image:url('https://imgur.com/hj2GK4n.png');
 }
 
 .pipe-bottom{
+    position: absolute;
     width:20px;
     height: 20px;
     background-image:url('https://imgur.com/c1cYSbt.png');
@@ -173,6 +182,7 @@ body{
 
 
 .pipe-bottom-right{
+    position: absolute;
     width:20px;
     height: 20px;
     background-image:url('https://imgur.com/nqQ79eI.png');

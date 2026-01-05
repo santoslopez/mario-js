@@ -146,6 +146,90 @@ function loadLevel(levelIndex){
         })
     })
 
+
+    // Create enemies
+    level.enemies.forEach((enemyData,index)=>{
+        const enemy = createElement('div',`enemy ${enemyData.type}`,{
+            left: enemyData.x + 'px',
+            top: enemyData.y + 'px',
+        })
+        gameArea.appendChild(enemy)
+        gameObjects.enemies.push({
+            element: enemy,
+            x: enemyData.x,
+            y: enemyData.y,
+            width:20,
+            height:20,
+            direction: -1,
+            speed: ENEMY_SPEED,
+            id: 'enemy-'+index,
+            alive: true
+        })
+    })
+
+    // Create coins
+    level.coins.forEach((coinData,index)=>{
+        const coin = createElement('div','coin',{
+            left: coinData.x + 'px',
+            top: coinData.y + 'px'
+        })
+
+        gameArea.appendChild(coin)
+        gameObjects.coins.push({
+            element: coin,
+            x: coinData.x,
+            y: coinData.y,
+            width:20,
+            height:20,
+            collected:false,
+            id: 'coin-'+index
+        })
+    })
+
+    // Create surprise blocks 
+    level.surpriseBlocks.forEach((blockData,index)=>{
+        const block = createElement('div','surprise-block',{
+            left: blockData.x + 'px',
+            top: blockData.y+'px'
+        })
+        gameArea.appendChild(block)
+        gameObjects.surpriseBlocks.push({
+            element: block,
+            x: blockData.x,
+            y: blockData.y,
+            width: 20,
+            height: 20,
+            type: blockData.type,
+            hit: false,
+            id: 'block-' +index
+        })
+    })
+
+    // Create pipes
+    level.pipes.forEach((pipeData,index)=>{
+        const pipe = createElement('div','pipe',{
+            left: pipeData.x + 'px',
+            top: pipeData.y + 'px',
+        })
+
+        const pipeTopLeft = createElement('div','pipe-top')
+        const pipeTopRight = createElement('div','pipe-top-right')
+        const pipeBottomLeft = createElement('div','pipe-bottom')
+        const pipeBottomRight = createElement('div','pipe-bottom-right')
+
+        pipe.append(pipeTopLeft,pipeTopRight,pipeBottomLeft,pipeBottomRight)
+
+        gameArea.appendChild(pipe)
+        gameObjects.pipes.push({
+            element: pipe,
+            x: pipeData.x,
+            y: pipeData.y,
+            width:40,
+            height:40,
+            id: 'pipe-'+index
+        })
+    })
+
 }
 
 function updateElementPosition(element,x,y){
@@ -211,6 +295,9 @@ function gameLoop(){
 }
 
 // Update game logic
+function update(){
+
+}
 
 
 // Start Game
