@@ -166,8 +166,20 @@ body{
 }
 
 
-.pipe-bottom-right{
+.pipe-top{
     position: absolute;
+    top: 0;
+    left: 0;
+    width:20px;
+    height: 20px;
+    background-image:url('https://imgur.com/ReTPiWY.png');   
+}
+
+
+.pipe-top-right{
+    position: absolute;
+    top: 0;
+    right: 0;
     width:20px;
     height: 20px;
     background-image:url('https://imgur.com/hj2GK4n.png');
@@ -175,6 +187,8 @@ body{
 
 .pipe-bottom{
     position: absolute;
+    bottom: 0;
+    left: 0;
     width:20px;
     height: 20px;
     background-image:url('https://imgur.com/c1cYSbt.png');
@@ -183,6 +197,8 @@ body{
 
 .pipe-bottom-right{
     position: absolute;
+    bottom: 0;
+    right: 0;
     width:20px;
     height: 20px;
     background-image:url('https://imgur.com/nqQ79eI.png');

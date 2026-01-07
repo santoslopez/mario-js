@@ -19,7 +19,7 @@ let gameState = {
 let player = {
     element: document.getElementById('mario'),
     x: 50,
-    y: 300,
+    y: 340,
     width: 20,
     height: 20,
     velocityX: 0,
@@ -63,7 +63,7 @@ const levels = [
             {x:350,y:220,type:'mushroom'}
         ],
         pipes:[
-            {x:750,y:300}
+            {x:750,y:320}
         ]
     },
     // level 2
@@ -96,7 +96,7 @@ const levels = [
             {x:400,y:220,type:'mushroom'}
         ],
         pipes: [
-            {x:750,y:300}
+            {x:750,y:320}
         ]
     }
 ]
@@ -122,7 +122,7 @@ function loadLevel(levelIndex){
 
     // reset player
     player.x = 50
-    player.y = 300
+    player.y = 340
     player.velocityX = 0
     player.velocityY = 0
     player.big = false 
@@ -296,9 +296,92 @@ function gameLoop(){
 
 // Update game logic
 function update(){
+// Handles left and right
 
+
+    if(gameState.keys['ArrowLeft'] || gameState.keys['KeyA']){
+        player.velocityX = -MOVE_SPEED
+    }else if (gameState.keys['ArrowRight'] || gameState.keys['KeyD']){
+        player.velocityX = MOVE_SPEED
+    }else{
+        player.velocityX *=0.8
+    }
+
+    // Handle jumping 
+    if (gameState.keys['Space'] && player.grounded){
+        player.velocityY = JUMP_FORCE
+        player.grounded = false
+    }
+
+    // Apply gravity
+    if (!player.grounded){
+        player.velocityY += GRAVITY
+    }
+
+    // update to play position
+    player.x += player.velocityX
+    player.y += player.velocityY
+
+
+    // platform collision 
+    player.grounded = false
+    for (let platform of gameObjects.platforms){
+        if (checkCollision(player,platform)){
+            if (player.velocityY > 0){ // falling
+                player.y = platform.y - player.height
+                player.velocityY = 0 
+                player.grounded = true
+            }
+        }
+    }
+
+    // pipe collision 
+    for (let pipe of gameObjects.pipes){
+        if(checkCollision(player,pipe)){
+            if(player.velocityY > 0){ // falling down onto pipe
+                player.y = pipe.y - player.height
+                player.velocityY = 0
+                player.grounded = true 
+            }
+
+        }
+    }
+
+    // Enemy movement and collision 
+    for (let enemy of gameObjects.enemies){
+        if(!enemy.alive) continue
+
+        enemy.x +=enemy.speed * enemy.direction
+
+        let onPlatform = false
+        // reverse direction at platform edges or boundaries
+        for (let platform of gameObjects.platforms){
+            if(enemy.x + enemy.width > platform.x 
+                && enemy.x < platform.x + platform.width &&
+                enemy.y + enemy.height >= platform.y - 5 && 
+                enemy.y + enemy.height <= platform.y + 5 
+
+            ){
+              onPlatform = true  
+              break
+            }
+        }
+
+        if (!onPlatform || enemy.x <= 0 || enemy.x >=800){
+            enemy.direction *= -1
+        }
+        updateElementPosition(enemy.element,enemy.x,enemy.y)
+    }
+
+    updateElementPosition(player.element,player.x,player.y)
 }
 
+function checkCollision(element1,element2){
+    return element1.x < element2.x + element2.width &&
+    element1.x + element1.width > element2.x &&
+    element1.y < element2.y + element2.height &&
+    element1.y + element1.height > element2.y
+}
 
 // Start Game
 
