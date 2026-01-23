@@ -57,6 +57,8 @@ body{
     position: absolute;
     width: 20px;
     height: 20px;
+    background-size: cover;
+    background-repeat: no-repeat;
     background-image:url('https://imgur.com/Wb1qfhK.png');
     z-index:100;
 
@@ -64,8 +66,8 @@ body{
 
 
 #mario.big{
-    width:40px;
-    height: 40px;
+    width:30px;
+    height: 30px;
     background-image:url('https://imgur.com/Wb1qfhK.png');
 }
 
@@ -112,6 +114,8 @@ body{
 
 .enemy.purple{
     position: absolute;
+    background-size: cover;
+    background-repeat: no-repeat;
     width:20px;
     height: 20px;
     background-image:url('https://imgur.com/SvV4ueD.png');
@@ -160,26 +164,21 @@ body{
 
 .pipe-top{
     position: absolute;
-    width:20px;
-    height: 20px;
-    background-image:url('https://imgur.com/ReTPiWY.png');   
-}
-
-
-.pipe-top{
-    position: absolute;
     top: 0;
     left: 0;
+    background-size:cover;
+    background-repeat:no-repeat;
     width:20px;
     height: 20px;
     background-image:url('https://imgur.com/ReTPiWY.png');   
 }
-
 
 .pipe-top-right{
     position: absolute;
     top: 0;
     right: 0;
+    background-size: cover;
+    background-repeat: no-repeat;
     width:20px;
     height: 20px;
     background-image:url('https://imgur.com/hj2GK4n.png');
@@ -189,6 +188,8 @@ body{
     position: absolute;
     bottom: 0;
     left: 0;
+    background-size:cover;
+    background-repeat: no-repeat;
     width:20px;
     height: 20px;
     background-image:url('https://imgur.com/c1cYSbt.png');
@@ -199,6 +200,8 @@ body{
     position: absolute;
     bottom: 0;
     right: 0;
+    background-size:cover;
+    background-repeat: no-repeat;
     width:20px;
     height: 20px;
     background-image:url('https://imgur.com/nqQ79eI.png');

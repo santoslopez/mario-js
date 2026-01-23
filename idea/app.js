@@ -371,9 +371,93 @@ function update(){
             enemy.direction *= -1
         }
         updateElementPosition(enemy.element,enemy.x,enemy.y)
+        
+        // Check player-enemy collision
+        if (checkCollision(player,enemy)){
+            if(player.velocityY > 0 && player.y < enemy.y){
+                // Jump on enemy
+                enemy.alive = false
+                enemy.element.remove()
+                player.velocityY = JUMP_FORCE * 0.7
+                gameState.score += 100
+
+            }else{
+                // hit by enemy 
+                if (player.big){
+                    player.big = false 
+                    player.bigTimer = 0
+                    player.element.classList.remove('big')
+                    player.width = 20
+                    player.height = 20
+                }else{
+                     loseLife()
+                }
+            }
+        }
+
+        // Coin collection 
+        for (let coin of gameObjects.coins){
+            if (!coin.collected && checkCollision(player,coin)){
+                coin.collected = true 
+                coin.element.remove()
+                gameState.score += 50
+            }
+        }
+
+        // Surprise blocks
+        for (let block of gameObjects.surpriseBlocks){
+            if(!block.hit && checkCollision(player,block) && player.velocityY < 0){
+                block.hit = true 
+                block.element.classList.add('hit')
+
+                if (block.type === 'mushroom'){
+                    player.big = true
+                    player.bigTimer = 600
+                    player.element.classList.add('big')
+                    player.width = 30
+                    player.height = 30
+                    gameState.score +=100
+
+                }else if (block.type === 'coin'){
+                    gameState.score += 50
+
+
+
+                }
+            }
+        }
+
+        // Pipe interaction to next level
+        for (let pipe of gameObjects.pipes){
+            if(player.grounded && 
+                player.x + player.width > pipe.x && 
+                player.x < pipe.x + pipe.width &&
+                Math.abs(player.y + player.height - pipe.y) < 5 && 
+                gameState.keys['ArrowDown']){
+                 nextLevel()
+                }
+            
+        }
+
+
     }
 
+
+    // Fall death 
+
+    if (player.y > 400){
+         loseLife()
+    }
+    
     updateElementPosition(player.element,player.x,player.y)
+
+    document.getElementById('score').textContent = gameState.score
+
+    document.getElementById('level').textContent = gameState.level
+    document.getElementById('lives').textContent = gameState.lives
+
+
+
 }
 
 function checkCollision(element1,element2){
@@ -382,6 +466,60 @@ function checkCollision(element1,element2){
     element1.y < element2.y + element2.height &&
     element1.y + element1.height > element2.y
 }
+
+function loseLife(){
+    gameState.lives--
+    if(gameState.lives <= 0){
+        showGameOver(false)
+    }else{
+        player.x = 50
+        player.y = 340 
+        player.velocityX = 0
+        player.velocityY = 0
+        player.big = false 
+        player.bigTimer = 0
+        player.element.classList.remove('big')
+        player.width = 20
+        player.height = 20
+    }
+}
+
+function nextLevel(){
+    gameState.level++
+    if(gameState.level > levels.length){
+        showGameOver(true)
+    }else{
+        loadLevel(gameState.level - 1)
+    }
+}
+
+
+function restartGame(){
+    gameState = {
+    score: 0,
+    level:1,
+    lives:3,
+    gameRunning: true,
+    keys:{}
+    }
+
+    player.big = false 
+    player.bigTimer = 0
+    player.element.classList.remove('big')
+    player.width = 20
+    player.height = 20
+
+
+    document.getElementById('game-over').style-display=='none'
+    initGame()
+
+
+}
+
+const restartButton = document.getElementById('restart-button')
+restartButton.addEventListener('click',restartGame)
+
+
 
 // Start Game
 
